@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J-POP 推薦歌單</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* 模糊背景 */
+    .bg-container {
+      position: relative;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .bg-container::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    .bg-container::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    /* 內容容器 */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* 返回按鈕 */
+    .back-btn {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      margin-bottom: 20px;
+      transition: background 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* 頁面標題 */
+    .page-title {
+      font-size: 2.5em;
+      color: white;
+      text-align: center;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .page-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      font-size: 1.1em;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 播放列表容器 */
+    .playlist {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 40px;
+    }
+
+    /* 歌曲項目 */
+    .song-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+      background: white;
+    }
+
+    .song-item:hover {
+      background: #f0f0f0;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 歌曲編號 */
+    .song-number {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #999;
+      width: 40px;
+      text-align: center;
+    }
+
+    /* 專輯封面 */
+    .song-cover {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin: 0 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 歌曲資訊 */
+    .song-info {
+      flex: 1;
+    }
+
+    .song-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .song-artist {
+      color: #666;
+      font-size: 0.95em;
+    }
+
+    /* 播放時間 */
+    .song-duration {
+      color: #999;
+      font-size: 0.95em;
+      margin-right: 10px;
+    }
+
+    /* 播放按鈕 */
+    .play-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a3a3a3 0%, #ffffff 100%);
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* 底部版權 */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding: 20px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-container">
+    <div class="content">
+      <a href="index.html" class="back-btn">← 返回首頁</a>
+      
+      <h1 class="page-title">🎧 J-POP 歌曲推薦</h1>
+      <p class="page-subtitle">溫柔細膩的旋律與情感表達，時而明亮、時而感傷。</p>
+
+    <div class="song-item">
+      <div class="song-number">01</div>
+      <img src="images/07.webp" class="song-cover" alt="封面">
+      <div class="song-info">
+        <div class="song-title">言って。</div>
+        <div class="song-artist">ヨルシカ</div>
+      </div>
+      <div class="song-duration">4:03</div>
+      <button class="play-btn" onclick="window.location.href='HTML/music-player.html?song=1'">▶</button>
+    </div>
+
+        <div class="song-item">
+          <div class="song-number">02</div>
+          <img src="images/08.webp" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">ある男</div>
+            <div class="song-artist">エイハブ</div>
+          </div>
+          <div class="song-duration">2:42</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">03</div>
+          <img 
+                id="cover" 
+                class="song-cover" 
+                src="https://i.ytimg.com/vi/IAq7woc-vxY/sddefault.jpg">
+          <div class="song-info">
+            <div class="song-title">ラブレス(Loveless)</div>
+            <div class="song-artist">Dios</div>
+          </div>
+          <div class="song-duration">3:31</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">04</div>
+          <img src="images/10.webp" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">さよならエンドロール(Sayonara End Roll)</div>
+            <div class="song-artist">Eve</div>
+          </div>
+          <div class="song-duration">3:36</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">05</div>
+          <img src="images/11.webp" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">アイナ・ジ・エンド(On The Way)</div>
+            <div class="song-artist">革命道中</div>
+          </div>
+          <div class="song-duration">3:37</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">06</div>
+          <img src="images/12.jpg" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">IS THIS LOVE</div>
+            <div class="song-artist">XG</div>
+          </div>
+          <div class="song-duration">2:56</div>
+          <button class="play-btn">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© 2025 homework made by Chenshin-yu Wucian-jia</div>
+  </div>
+
+<script>
+  // 點擊歌曲列表效果
+  document.querySelectorAll('.song-item').forEach(item => {
+    item.addEventListener('click', function() {
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+</head>
+
+<body>
+<div class="music-page">
+
+    <div class="player">
+        <button class="back-btn">返回主頁</button>
+
+        <div class="player-main">
+            <h2 class="song-title">IS THIS LOVE</h2>
+            <p class="artist-name">XG</p>
+
+            <div class="album-box">
+                <div class="album-bg"></div>  <!-- ✅ 底板 -->
+
+                <!-- YouTube封面 -->
+                <img 
+                    id="cover" 
+                    class="album-cover" 
+                    src="https://img.youtube.com/vi/aHTI0SXGVS0/maxresdefault.jpg"
+                    alt="album cover">
+            </div>
+
+            <div class="progress-row">
+                <div id="currentTime" class="time">0:00</div>
+                <input id="progress" class="progress-bar" type="range" min="0" max="100" value="0" step="0.1">
+                <div id="durationTime" class="time">0:00</div>
+            </div>
+
+            <div class="controls">
+                <button id="prevBtn" class="btn"><i class="fas fa-step-backward"></i></button>
+                <button id="playBtn" class="btn"><i class="fas fa-play"></i></button>
+                <button id="nextBtn" class="btn"><i class="fas fa-step-forward"></i></button>
+                <button id="shuffleBtn" class="btn"><i class="fas fa-random"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 音樂播放 -->
+    <audio id="player" src="XG - IS THIS LOVE (Official Music Video).mp3"></audio>
+
+    <div class="lyrics">
+        <h3 class="lyrics-title">歌詞</h3>
+        <div class="lyrics-content">
+        作詞 : Blush, Chancellor (챈슬러), Knave (네이브) & Mychole Anderson    
+        作曲 : Blush, Chancellor (챈슬러), Knave (네이브) & Mychole Anderson 
+        Oh, no, no, oh, no, no
+        Eh-yeah, mm-mm-mm-mm 
+        Yeah, you're my sunshine 
+        You're the only one I wanna give all my time
+        There's just somethin' about it
+        Soon as we met, I couldn't even help it
+        Yeah, I got a feelin', and I can't ignore it
+        I ain't playin' no games, I mean what I say
+        Got you on my mind, if you feel the same
+        Won't you swing my way? Baby, don't make me wait
+        I don't know if it's meant to be, but it feels like everythin'
+        Is this love? (Is this love?), is this love?
+        Is this love? (Is this love?), is this love?
+        Takin' over me, feel that energy
+        Is this love? Is this love?
+        I don't know why they say love is so blind
+        Somethin' so hard to find, but I think we found it
+        I think we got it, no doubt about it
+        If it ain't then what's love? (What's love?)
+        Someone, tell me what's up (what's up?)
+        What's love gonna do when you feelin' blue?
+        You been lookin' for the truth, so I'm tellin' you
+        But all this time in the back of my mind 
+        It's back to remind me, so let me learn what I never knew
+        Now you got me like, "Ooh, I don't care, I want you to take me there"
+        Baby, let's get away, will I know what it means one day? 
+        Is this love? (Is this love?), is this love? (Is this love?) 
+        Is this love? (Is this love?), is this love? (Is this love?) 
+        Takin' over me (over), feel that energy (yeah)
+        Is this love? (Is this love?), is this love? (Ooh)
+        Some things I just can't seem to figure out
+        This feelin' of love jumpin' up and down 
+        Still don't get it, just bein' honest 
+        Guess I'm stuck here with the same question, baby
+        Is this love? (Love), is this love?
+        Is this love? (Tell me, is this love?), is this love? (Is it really love?)
+        Takin' over me (ooh), feel that energy (that energy)
+        Is this love? Is this love?
+        So, tell me, is this love? 
+        </div>
+    </div>
+
+</div>
+
+<script>
+const audio = document.getElementById("player");
+const playBtn = document.getElementById("playBtn");
+const progress = document.getElementById("progress");
+
+// 播放/暫停
+playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        audio.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    }
+});
+
+const currentTimeEl = document.getElementById("currentTime");
+const durationTimeEl = document.getElementById("durationTime");
+
+function formatTime(sec){
+    if (!sec || isNaN(sec)) return "0:00";
+    sec = Math.floor(sec);
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+}
+
+audio.addEventListener("loadedmetadata", () => {
+    durationTimeEl.textContent = formatTime(audio.duration);
+});
+
+let isDragging = false;
+
+audio.addEventListener("timeupdate", () => {
+    if (!isDragging && audio.duration) {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        progress.value = pct;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+});
+
+progress.addEventListener("input", (e) => {
+    isDragging = true;
+    const pct = Number(e.target.value);
+    const previewSec = (pct / 100) * (audio.duration || 0);
+    currentTimeEl.textContent = formatTime(previewSec);
+});
+
+progress.addEventListener("change", (e) => {
+    const pct = Number(e.target.value);
+    if (audio.duration) {
+        audio.currentTime = (pct / 100) * audio.duration;
+    }
+    setTimeout(() => isDragging = false, 150);
+});
+
+audio.addEventListener("ended", () => {
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    progress.value = 0;
+    currentTimeEl.textContent = "0:00";
+});
+</script>
+
+</body>
+</html>

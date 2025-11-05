@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Cloud music</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header>
+    <!------------------------------導覽列-------------------------->
+        <nav>
+            <div class="nav-left">
+            <a href="index.html" class="logo">MyLogo</a>
+                  <div class="nav-buttons">
+                    <button class="active">推薦</button>
+                    <button>分類</button>
+                    <button>收藏</button>
+                </div>
+            </div>
+            <div class="nav-right">
+            <a href="#login">登入</a>
+            <a href="#signup">註冊</a>
+            </div>
+        </nav>
+    </header>
+    <script>
+    const buttons = document.querySelectorAll('.nav-buttons button');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+    </script>
+    <!------------------------------推薦歌曲-------------------------->
+  <article class="article">
+    <div class="section-title">推薦歌曲</div>
+
+    <div class="music-scroll">
+      <div class="music-card" style="background-color: #f8f1dc;">
+        <img class="album" src="cover1.jpg" alt="Song Cover">
+        <p class="song-title">Song Title 1</p>
+        <p class="artist">Artist 1</p>
+      </div>
+    </div>
+
+    <div class="music-scroll">
+      <div class="music-card" style="background-color: #e7edf3;">
+        <img class="album" src="cover2.jpg" alt="Song Cover">
+        <p class="song-title">Song Title 2</p>
+        <p class="artist">Artist 2</p>
+      </div>
+    </div>
+
+    <div class="music-scroll">
+      <div class="music-card" style="background-color: #f3e4e1;">
+        <img class="album" src="cover3.jpg" alt="Song Cover">
+        <p class="song-title">Song Title 3</p>
+        <p class="artist">Artist 3</p>
+      </div>
+    </div>
+
+    <div class="music-scroll">
+      <div class="music-card" style="background-color: #e4f0e7;">
+        <img class="album" src="cover4.jpg" alt="Song Cover">
+        <p class="song-title">Song Title 4</p>
+        <p class="artist">Artist 4</p>
+      </div>
+    </div>
+
+    <div class="music-scroll">
+      <div class="music-card" style="background-color: #f0e9f9;">
+        <img class="album" src="cover5.jpg" alt="Song Cover">
+        <p class="song-title">Song Title 5</p>
+        <p class="artist">Artist 5</p>
+      </div>
+    </div>
+
+    <div class="music-scroll">
+      <div class="music-card" style="background-color: #fff0f3;">
+        <img class="album" src="cover6.jpg" alt="Song Cover">
+        <p class="song-title">Song Title 6</p>
+        <p class="artist">Artist 6</p>
+      </div>
+    </div>
+  </article>
+    <!------------------------------藝人推薦-------------------------->
+  <article class="artist-section">
+    <div class="section-title">推薦藝人</div>
+
+    <div class="artist-card">
+      <img class="artist-picture" src="artist1.jpg" alt="artist">
+      <p class="artist-name">Name 1</p>
+    </div>
+
+    <div class="artist-card">
+      <img class="artist-picture" src="artist2.jpg" alt="artist">
+      <p class="artist-name">Name 2</p>
+    </div>
+
+    <div class="artist-card">
+      <img class="artist-picture" src="artist3.jpg" alt="artist">
+      <p class="artist-name">Name 3</p>
+    </div>
+
+    <div class="artist-card">
+      <img class="artist-picture" src="artist4.jpg" alt="artist">
+      <p class="artist-name">Name 4</p>
+    </div>
+
+    <div class="artist-card">
+      <img class="artist-picture" src="artist5.jpg" alt="artist">
+      <p class="artist-name">Name 5</p>
+    </div>
+
+    <div class="artist-card">
+      <img class="artist-picture" src="artist6.jpg" alt="artist">
+      <p class="artist-name">Name 6</p>
+    </div>
+  </article>
+</body>

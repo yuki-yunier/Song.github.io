@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>
+<div class="music-page">
+    <div class="player">
+        <button class="back-btn" onclick="location.href='../kpop.html'">返回主頁</button>
+        
+        <h2 class="song-title" id="songTitle">載入中...</h2>
+        <p class="artist-name" id="artistName">載入中...</p>
+
+        <div class="album-box">
+            <div class="album-bg"></div>
+            <img id="cover" class="album-cover" src="" alt="album cover">
+        </div>
+
+        <audio id="player" src=""></audio>
+
+        <div class="progress-row">
+            <div id="currentTime" class="time">0:00</div>
+            <input id="progress" class="progress-bar" type="range" min="0" max="100" value="0" step="0.1">
+            <div id="durationTime" class="time">0:00</div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn"><i class="fas fa-step-backward"></i></button>
+            <button id="playBtn" class="btn"><i class="fas fa-play"></i></button>
+            <button id="nextBtn" class="btn"><i class="fas fa-step-forward"></i></button>
+            <button id="shuffleBtn" class="btn"><i class="fas fa-random"></i></button>
+        </div>
+    </div>
+
+    <div class="lyrics">
+        <h3>歌詞</h3>
+        <div class="lyrics-content" id="lyricsContent">
+            <p>載入中...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// 歌曲資料庫
+const songs = {
+    1: {
+        title: "나란히 (Side By Side)",
+        artist: "비와이 (BewhY)",
+        cover: "../images/1.webp",
+        audio: "../music/song1.mp3",
+        lyrics: "123"
+    },
+    2: {
+        title: "CLIK CLAK",
+        artist: "BABYMONSTER",
+        cover: "../images/2.jpg",
+        audio: "../music/song2.mp3",
+        lyrics: "歌詞內容2..."
+    },
+    3: {
+        title: "잘 알지도 못하면서",
+        artist: "김예림(Lim Kim)",
+        cover: "../images/3.jpg",
+        audio: "../music/song3.mp3",
+        lyrics: "歌詞內容3..."
+    },
+    4: {
+        title: "청춘찬가",
+        artist: "세븐틴 (SEVENTEEN)",
+        cover: "../images/4.jpg",
+        audio: "../music/song4.mp3",
+        lyrics: "歌詞內容4..."
+    },
+    5: {
+        title: "나비소녀 (Don't Go)",
+        artist: "EXO",
+        cover: "../images/5.webp",
+        audio: "../music/song5.mp3",
+        lyrics: "歌詞內容5..."
+    },
+    6: {
+        title: "Girls Never Die",
+        artist: "tripleS(트리플에스)",
+        cover: "../images/6.jpg",
+        audio: "../music/song6.mp3",
+        lyrics: "歌詞內容6..."
+    }
+};
+
+// 取得 URL 參數
+const urlParams = new URLSearchParams(window.location.search);
+const songId = urlParams.get('song') || '1';
+const currentSong = songs[songId];
+
+// 載入歌曲資訊
+document.getElementById('songTitle').textContent = currentSong.title;
+document.getElementById('artistName').textContent = currentSong.artist;
+document.getElementById('cover').src = currentSong.cover;
+document.getElementById('player').src = currentSong.audio;
+document.getElementById('lyricsContent').innerHTML = `<p>${currentSong.lyrics}</p>`;
+
+// 音樂播放器功能
+const audio = document.getElementById("player");
+const playBtn = document.getElementById("playBtn");
+const progress = document.getElementById("progress");
+
+playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        audio.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    }
+});
+
+const currentTimeEl = document.getElementById("currentTime");
+const durationTimeEl = document.getElementById("durationTime");
+
+function formatTime(sec){
+    if (!sec || isNaN(sec)) return "0:00";
+    sec = Math.floor(sec);
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+}
+
+audio.addEventListener("loadedmetadata", () => {
+    durationTimeEl.textContent = formatTime(audio.duration);
+});
+
+let isDragging = false;
+
+audio.addEventListener("timeupdate", () => {
+    if (!isDragging && audio.duration) {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        progress.value = pct;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+});
+
+progress.addEventListener("input", (e) => {
+    isDragging = true;
+    const pct = Number(e.target.value);
+    const previewSec = (pct / 100) * (audio.duration || 0);
+    currentTimeEl.textContent = formatTime(previewSec);
+});
+
+progress.addEventListener("change", (e) => {
+    const pct = Number(e.target.value);
+    if (audio.duration) {
+        audio.currentTime = (pct / 100) * audio.duration;
+    }
+    setTimeout(() => isDragging = false, 150);
+});
+
+audio.addEventListener("ended", () => {
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    progress.value = 0;
+    currentTimeEl.textContent = "0:00";
+});
+
+// 上一首/下一首功能
+document.getElementById('prevBtn').addEventListener('click', () => {
+    const prevId = parseInt(songId) - 1;
+    if (prevId >= 1) {
+        window.location.href = `music-player.html?song=${prevId}`;
+    }
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+    const nextId = parseInt(songId) + 1;
+    if (nextId <= 6) {
+        window.location.href = `music-player.html?song=${nextId}`;
+    }
+});
+</script>
+
+</body>
+</html>
+```
+
+## 步驟 3: 整理檔案結構
+```
+其中/
+├── kpop.html
+├── style.css
+├── images/
+│   ├── 1.webp
+│   ├── 2.jpg
+│   ├── 3.jpg
+│   ├── 4.jpg
+│   ├── 5.webp
+│   └── 6.jpg
+├── music/
+│   ├── song1.mp3
+│   ├── song2.mp3
+│   ├── song3.mp3
+│   ├── song4.mp3
+│   ├── song5.mp3
+│   └── song6.mp3
+└── HTML/
+    └── music-player.html  ← 只需要這一個播放器檔案
