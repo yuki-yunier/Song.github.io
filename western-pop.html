@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西方流行 推薦歌單</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* 模糊背景 */
+    .bg-container {
+      position: relative;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .bg-container::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    .bg-container::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    /* 內容容器 */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* 返回按鈕 */
+    .back-btn {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      margin-bottom: 20px;
+      transition: background 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* 頁面標題 */
+    .page-title {
+      font-size: 2.5em;
+      color: white;
+      text-align: center;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .page-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      font-size: 1.1em;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 播放列表容器 */
+    .playlist {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 40px;
+    }
+
+    /* 歌曲項目 */
+    .song-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+      background: white;
+    }
+
+    .song-item:hover {
+      background: #f0f0f0;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 歌曲編號 */
+    .song-number {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #999;
+      width: 40px;
+      text-align: center;
+    }
+
+    /* 專輯封面 */
+    .song-cover {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin: 0 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 歌曲資訊 */
+    .song-info {
+      flex: 1;
+    }
+
+    .song-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .song-artist {
+      color: #666;
+      font-size: 0.95em;
+    }
+
+    /* 播放時間 */
+    .song-duration {
+      color: #999;
+      font-size: 0.95em;
+      margin-right: 10px;
+    }
+
+    /* 播放按鈕 */
+    .play-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a3a3a3 0%, #ffffff 100%);
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* 底部版權 */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding: 20px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-container">
+    <div class="content">
+      <a href="index.html" class="back-btn">← 返回首頁</a>
+      
+      <h1 class="page-title">🎧 西方流行 歌曲推薦</h1>
+      <p class="page-subtitle">多元風格與跨文化融合的代表，以真誠直白的詞句與世界共鳴。</p>
+
+    <div class="song-item">
+      <div class="song-number">01</div>
+      <img src="https://i.ytimg.com/vi_webp/PEnJbjBuxnw/sddefault.webp" class="song-cover" alt="封面">
+      <div class="song-info">
+        <div class="song-title"> World's Smallest Violin</div>
+        <div class="song-artist">AJR</div>
+      </div>
+      <div class="song-duration">3:07</div>
+      <button class="play-btn" onclick="window.location.href='HTML/music-player.html?song=1'">▶</button>
+    </div>
+
+        <div class="song-item">
+          <div class="song-number">02</div>
+          <img src="https://i.ytimg.com/vi_webp/SJXcYilt2a4/sddefault.webp" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">Time machine</div>
+            <div class="song-artist"> mj apanay (ft. aren park)</div>
+          </div>
+          <div class="song-duration">3:46</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">03</div>
+          <img 
+                id="cover" 
+                class="song-cover" 
+                src="https://i.ytimg.com/vi_webp/5-I1lT6Jbdo/sddefault.webp">
+          <div class="song-info">
+            <div class="song-title">Harpy Hare</div>
+            <div class="song-artist">Yaelokre</div>
+          </div>
+          <div class="song-duration">2:59</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">03</div>
+          <img 
+                id="cover" 
+                class="song-cover" 
+                src="https://img.youtube.com/vi/Jn_8pvZOFOA/maxresdefault.jpg">
+          <div class="song-info">
+            <div class="song-title">Good Time (1:08)</div>
+            <div class="song-artist">Jagwar Twin</div>
+          </div>
+          <div class="song-duration">2:38</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">05</div>
+          <img src="https://img.youtube.com/vi/5FSHSfSnjXk/maxresdefault.jpg" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">What Does It Mean To You</div>
+            <div class="song-artist">Carpetman</div>
+          </div>
+          <div class="song-duration">4:00</div>
+          <button class="play-btn">▶</button>
+        </div>
+
+        <div class="song-item">
+          <div class="song-number">06</div>
+          <img src="https://img.youtube.com/vi/AeZxDcjXbzE/maxresdefault.jpg" class="song-cover" alt="封面">
+          <div class="song-info">
+            <div class="song-title">Off My Face</div>
+            <div class="song-artist">Justin Bieber</div>
+          </div>
+          <div class="song-duration">2:36</div>
+          <button class="play-btn">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© 2025 homework made by Chenshin-yu Wucian-jia</div>
+  </div>
+
+<script>
+  // 點擊歌曲列表效果
+  document.querySelectorAll('.song-item').forEach(item => {
+    item.addEventListener('click', function() {
+    });
+  });
+</script>
+</body>
+</html>
